@@ -44,7 +44,7 @@ public class TestController {
     public String helloworld2() {
     	//org.apache.catalina.connector.Request request = null;
     	HttpServletRequest request = null;
-    	HttpSession session = request.getSession();
+    	//HttpSession session = request.getSession();
         return "helloworld2fdsddgds";
     }
     
@@ -164,7 +164,7 @@ public class TestController {
         	sb = new StringBuffer();
             webClient= new WebClient(BrowserVersion.FIREFOX_45);    //定义一个WebClient
             final HtmlPage page=webClient.getPage("https://www.cnblogs.com/");    //从指定URL获取HtmlPage
-            
+             
             HtmlDivision htmlDiv =page.querySelector("div");//获取第一个div
             System.out.println(htmlDiv.asXml());
             
