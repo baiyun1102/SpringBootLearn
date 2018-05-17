@@ -66,18 +66,19 @@ public class TestController {
     
     
     
-    public String getHtmlByDom() {
-        
-        WebClient webClient=null;
-        StringBuffer sb = null;
-        try {
+    public String getHtmlByDom() {   
+    	StringBuffer sb = null;
+    	//WebClient webClient = null;
+        try(
+        	WebClient webClient=new WebClient(BrowserVersion.FIREFOX_45);    //定义一个WebClient
+         ) {
+        	
         	String url = null;
         	url = "https://www.cnblogs.com/";
         	//url = "http://erp.chinaums.com/";
-            webClient= new WebClient(BrowserVersion.FIREFOX_45);    //定义一个WebClient
             final HtmlPage page=webClient.getPage(url);    //从指定URL获取HtmlPage
+            //webClient=new WebClient(BrowserVersion.FIREFOX_45);
             sb = new StringBuffer();
-            
             /**
              * DomElement 的子类：HtmlElement
              * HtmlElemnt也有很多子类，基本上涵盖了所有的Html元素
@@ -100,9 +101,10 @@ public class TestController {
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-        }finally {
-            webClient.close();    //关闭客户端
-        }
+        }/*finally {
+        	if(webClient != null)
+        		webClient.close();    //关闭客户端
+        }*/
         
         return "爬取完毕,结果如下:"+"<br/>"+sb.toString();
     }
