@@ -1,6 +1,7 @@
 package com.test.springboot.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
 
 /**
  * ClassName ： TestController
@@ -46,7 +49,24 @@ public class TestController {
     	HttpServletRequest request = null;
     	//HttpSession session = request.getSession();
     	//注释
-        return "helloworld2fdsddgds";
+    	
+
+    	HazelcastInstance hz = Hazelcast.newHazelcastInstance();
+        Map<String, String> map = hz.getMap("map");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        while(true){
+            System.out.println("--size:"+map.size());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    	
+        //return "helloworld2fdsddgds";
     }
     
     
